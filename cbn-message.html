@@ -55,9 +55,7 @@
 		}
 
 		.type-icon {
-
 			opacity: 1;
-			cursor: pointer;
 		}
 
 		.message {
@@ -80,7 +78,10 @@
 			flex-direction: row;
 			align-items: center;
 		}
-		.dismiss-button:hover{
+		.action-button{
+			cursor: pointer;
+		}
+		.action-button:hover{
 			opacity:0.5;
 		}
 		.history {
@@ -106,26 +107,21 @@
 			<!--<span>{{_noMessages}}</span>-->
 		</paper-button>
 		<paper-tooltip for="historyButton" position="bottom" class="tooltip" animation-delay="0">Help</paper-tooltip>
-		<paper-toast id="toast" duration="[[duration]]" class="">
+		<paper-toast id="toast" duration="[[duration]]" class="capsule">
 			<div class="message">
-				<paper-button class="icon-button" on-tap="hide">
-					<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
-				</paper-button>
+				<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
 				<span class="text">{{text}}</span>
-				<paper-button class="icon-button dismiss-button" on-tap="hide" style="margin-right:0;">
+				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;">
 					<iron-icon id="dismiss-messages" icon="icons:assignment-turned-in"></iron-icon>
 				</paper-button>
-				<paper-button class="icon-button" on-tap="toggleHistory" style="margin-left:0;">
+				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;">
 					<iron-icon icon="icons:history"></iron-icon>
 				</paper-button>
 			</div>
 			<div style="max-height:170px; overflow-y:auto" hidden$="{{!_historyOpened}}">
 				<template is="dom-repeat" items="[[history]]">
 					<div class="message history">
-						<paper-button class="icon-button" on-tap="hide">
-							<iron-icon class="type-icon" icon="{{_iconForType(item.type)}}"
-									   color$="{{item.type}}"></iron-icon>
-						</paper-button>
+						<iron-icon class="type-icon" icon="{{_iconForType(item.type)}}" color$="{{item.type}}"></iron-icon>
 						<span class="text">{{item.text}}</span>
 					</div>
 				</template>
@@ -250,15 +246,17 @@
 					return;
 				}
 				this.duration = 600000;//10min
-				this.show();
 				this._historyOpened = true;
+				this.show();
 			},
 			hideHistory: function () {
 				this.hide();
 				this._historyOpened = false;
 			},
 			toggleHistory: function () {
-				if (this._historyOpened) {
+				if(!this.$.toast.visible){
+					this.showHistory();
+				}else if (this._historyOpened) {
 					this.hideHistory();
 				} else {
 					this.showHistory();

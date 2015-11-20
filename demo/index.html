@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
 
-	<title>cbn-help</title>
+	<title>cbn-message</title>
 
 	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="../cbn-message.html">
@@ -33,10 +33,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 	<template id="first" is="dom-bind">
 		<cbn-message></cbn-message>
-		<paper-button on-tap='message1'>Message 1</paper-button>
-		<paper-button on-tap='message2'>Message 2</paper-button>
-		<paper-button on-tap='message3'>Message 3</paper-button>
-		<paper-button on-tap='message4'>Message 4</paper-button>
+		<paper-button on-tap='message1'>Short message, 30sec, success</paper-button><br />
+		<paper-button on-tap='message2'>Short message, 2sec, success</paper-button><br />
+		<paper-button on-tap='message3'>Long message, 30sec, warning</paper-button><br />
+		<paper-button on-tap='message4'>Short message, 30sec, error</paper-button><br />
 	</template>
 	<script>
 		window.addEventListener('WebComponentsReady', function () {
@@ -49,16 +49,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			};
 			first.message2= function(){
 				this.fire("cbn-message", {
-					"text": "Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2",
-					"duration":30000,
+					"text": "Message 3",
+					"duration": 2000,
 					"type": "success"
 				});
 			};
 			first.message3= function(){
 				this.fire("cbn-message", {
-					"text": "Message 3",
-					"duration": 2000,
-					"type": "success"
+					"text": "Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2",
+					"duration":30000,
+					"type": "warning"
 				});
 			};
 			first.message4= function(){
