@@ -1,0 +1,74 @@
+<!doctype html>
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+
+	<title>cbn-help</title>
+
+	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<link rel="import" href="../cbn-message.html">
+	<link rel="import" href="../../paper-button/paper-button.html">
+
+	<style>
+		html,body{
+			margin:0;
+			padding:0;
+		}
+		body {
+			position: absolute;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+		}
+	</style>
+</head>
+<body>
+	<template id="first" is="dom-bind">
+		<cbn-message></cbn-message>
+		<paper-button on-tap='message1'>Message 1</paper-button>
+		<paper-button on-tap='message2'>Message 2</paper-button>
+		<paper-button on-tap='message3'>Message 3</paper-button>
+		<paper-button on-tap='message4'>Message 4</paper-button>
+	</template>
+	<script>
+		window.addEventListener('WebComponentsReady', function () {
+			first.message1= function(){
+				this.fire("cbn-message", {
+					"text": "Message 1",
+					"duration":3000000,
+					"type": "success"
+				});
+			};
+			first.message2= function(){
+				this.fire("cbn-message", {
+					"text": "Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2",
+					"duration":30000,
+					"type": "success"
+				});
+			};
+			first.message3= function(){
+				this.fire("cbn-message", {
+					"text": "Message 3",
+					"duration": 2000,
+					"type": "success"
+				});
+			};
+			first.message4= function(){
+				this.fire("cbn-message", {
+					"text": "Message 4",
+					"duration": 30000,
+					"type": "error"
+				});
+			};
+		});
+	</script>
+	</body>
+</html>

@@ -1,0 +1,269 @@
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+
+
+<!--
+`cbn-message` allows you to use an [ace editor](http://ace.c9.io/) as an element.
+### Usage
+    <cbn-message></cbn-message>
+@element cbn-message
+@demo demo/index.html
+-->
+
+<dom-module id="cbn-message">
+	<style is="custom-style">
+		:host {
+			display: block;
+		}
+
+		[hidden] {
+			display: none !important;
+		}
+		paper-tooltip{
+			--paper-tooltip:{
+				background-color: black;
+				font-size: 10px;
+				opacity:1;
+				padding: 5px;
+				border-radius: 5px;
+			}
+		}
+		paper-toast {
+			z-index: 1;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+
+			-ms-flex-direction: column;
+			-webkit-flex-direction: column;
+			flex-direction: column;
+			padding: 0;
+			min-height: 44px;
+		}
+
+		.icon-button {
+			min-width: initial;
+		}
+
+		.text {
+			-ms-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			line-height: 24px;
+		}
+
+		.type-icon {
+
+			opacity: 1;
+			cursor: pointer;
+		}
+
+		.message {
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+
+			-ms-flex-direction: row;
+			-webkit-flex-direction: row;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.icon-button {
+			display: -ms-inline-flexbox;
+			display: -webkit-inline-flex;
+			display: inline-flex;
+			-ms-flex-direction: row;
+			-webkit-flex-direction: row;
+			flex-direction: row;
+			align-items: center;
+		}
+		.dismiss-button:hover{
+			opacity:0.5;
+		}
+		.history {
+			border-top: 1px solid darkgray;
+		}
+
+		[color="success"] {
+			color: #0f9d58;
+		}
+
+		[color="warning"] {
+			color: #f4b400;
+		}
+
+		[color="error"] {
+			color: #f44336;
+		}
+	</style>
+
+	<template>
+		<paper-button class="icon-button" on-tap="toggleHistory" id="historyButton">
+			<iron-icon icon="icons:history"></iron-icon>
+			<!--<span>{{_noMessages}}</span>-->
+		</paper-button>
+		<paper-tooltip for="historyButton" position="bottom" class="tooltip" animation-delay="0">Help</paper-tooltip>
+		<paper-toast id="toast" duration="[[duration]]" class="">
+			<div class="message">
+				<paper-button class="icon-button" on-tap="hide">
+					<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
+				</paper-button>
+				<span class="text">{{text}}</span>
+				<paper-button class="icon-button dismiss-button" on-tap="hide" style="margin-right:0;">
+					<iron-icon id="dismiss-messages" icon="icons:assignment-turned-in"></iron-icon>
+				</paper-button>
+				<paper-button class="icon-button" on-tap="toggleHistory" style="margin-left:0;">
+					<iron-icon icon="icons:history"></iron-icon>
+				</paper-button>
+			</div>
+			<div style="max-height:170px; overflow-y:auto" hidden$="{{!_historyOpened}}">
+				<template is="dom-repeat" items="[[history]]">
+					<div class="message history">
+						<paper-button class="icon-button" on-tap="hide">
+							<iron-icon class="type-icon" icon="{{_iconForType(item.type)}}"
+									   color$="{{item.type}}"></iron-icon>
+						</paper-button>
+						<span class="text">{{item.text}}</span>
+					</div>
+				</template>
+			</div>
+
+		</paper-toast>
+	</template>
+</dom-module>
+
+<script>
+	(function () {
+		Polymer({
+			is: 'cbn-message',
+			properties: {
+				/**
+				 * in milliseconds
+				 */
+				duration: {
+					type: Number,
+					value: 30000
+				},
+				/**
+				 * the text to be shown
+				 */
+				text: {
+					type: String,
+					value: ""
+				},
+				/**
+				 * success/warning/error
+				 */
+				type: {
+					type: String,
+					value: "success"
+				},
+				/**
+				 * a complete history of all the messages displayed
+				 */
+				history: {
+					type: Array,
+					value: function () {
+						return []
+					},
+					readOnly: true,
+					notify: true
+				},
+				_historyOpened: {
+					type: Boolean,
+					value: false
+				},
+				_noMessages: {
+					type: Number,
+					value: 0
+				}
+
+			},
+			attached: function () {
+				this.listen(document, "cbn-message", "_listenForMessages");
+			},
+			detached: function () {
+				this.unlisten(document, "cbn-message", "_listenForMessages");
+			},
+			_listenForMessages: function (event) {
+				console.log(event.detail);
+				this.showMessage(event.detail.text, event.detail.duration, event.detail.type)
+			},
+			_iconForType: function (type) {
+				if (type == "warning") {
+					return "icons:warning"
+				} else if (type == "success") {
+					return "icons:check-circle"
+				} else if (type == "error") {
+					return "icons:error"
+				}
+			},
+			showMessage: function (text, duration, type) {
+				if (text == "") {
+					return;
+				}
+				this._noMessages++;
+				this._addToHistory();
+				this.text = text || this.text;
+				this.duration = duration || this.duration;
+				this.type = type || "success";
+
+				this.hideHistory();
+				this.show();
+			},
+			_addToHistory: function () {
+				if (this.text != "") {
+					this.splice("history", 0, 0, {
+						text: this.text,
+						type: this.type
+					});
+				}
+			},
+			_positionToast: function () {
+				var width = parseInt(window.getComputedStyle(this.$.toast).width, 10);
+				this.$.toast.style.left = ((window.innerWidth - width) / 2) + "px";
+				this.$.toast.style.bottom = "auto";
+				this.$.toast.style.top = "5px";
+			},
+			_computeHistoryLength: function () {
+				if (this.text == "") {
+					return 0;
+				} else {
+					return this.history.length + 1;
+				}
+			},
+			hide: function () {
+				this.$.toast.hide();
+			},
+			show: function () {
+				this._positionToast();
+				this.$.toast.show();
+			},
+			toggle: function () {
+				this.$.toast.toggle();
+			},
+			showHistory: function () {
+				if (this._noMessages == 0) {
+					return;
+				}
+				this.duration = 600000;//10min
+				this.show();
+				this._historyOpened = true;
+			},
+			hideHistory: function () {
+				this.hide();
+				this._historyOpened = false;
+			},
+			toggleHistory: function () {
+				if (this._historyOpened) {
+					this.hideHistory();
+				} else {
+					this.showHistory();
+				}
+			}
+		});
+	})();
+</script>

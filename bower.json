@@ -1,0 +1,21 @@
+{
+    "name": "cbn-message",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "polymer": "Polymer/polymer#^1.2",
+        "paper-toast":"PolymerElements/paper-toast#^1.0",
+        "iron-icon": "PolymerElements/iron-icon#^1.0",
+        "iron-icons": "PolymerElements/iron-icons#^1.0",
+        "paper-button":"PolymerElements/paper-button#^1.0",
+        "paper-tooltip":"PolymerElements/paper-tooltip#^1.0"
+        
+       
+    },
+    "devDependencies": {
+        "web-component-tester": "Polymer/web-component-tester",
+        "iron-component-page": "PolymerElements/iron-component-page#^1.0",
+        "test-fixture": "PolymerElements/test-fixture#^1.0"
+        
+    }
+}
