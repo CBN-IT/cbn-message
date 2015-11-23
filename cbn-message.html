@@ -56,6 +56,7 @@
 
 		.type-icon {
 			opacity: 1;
+			margin: 0 6px 0 10px;
 		}
 
 		.message {
@@ -106,7 +107,7 @@
 			<iron-icon icon="icons:history"></iron-icon>
 			<!--<span>{{_noMessages}}</span>-->
 		</paper-button>
-		<paper-tooltip for="historyButton" position="bottom" class="tooltip" animation-delay="0">Help</paper-tooltip>
+		<paper-tooltip for="historyButton" position="bottom" class="tooltip" animation-delay="0">Istoric Mesaje</paper-tooltip>
 		<paper-toast id="toast" duration="[[duration]]" class="capsule">
 			<div class="message">
 				<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
