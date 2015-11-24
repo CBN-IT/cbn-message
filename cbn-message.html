@@ -118,12 +118,14 @@
 			<div class="message">
 				<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
 				<span class="text">{{text}}</span>
-				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;">
-					<iron-icon id="dismiss-messages" icon="icons:assignment-turned-in"></iron-icon>
+				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;" id="dismissMessage">
+					<iron-icon icon="icons:assignment-turned-in"></iron-icon>
 				</paper-button>
-				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;">
+				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;" id="historyButtonMessage" >
 					<iron-icon icon="icons:history"></iron-icon>
 				</paper-button>
+				<paper-tooltip for="dismissMessage">Ascunde mesajul</paper-tooltip>
+				<paper-tooltip for="historyButtonMessage">Istoric Mesaje</paper-tooltip>
 			</div>
 			<div style="max-height:170px; overflow-y:auto" hidden$="{{!_historyOpened}}">
 				<template is="dom-repeat" items="[[history]]">
