@@ -266,7 +266,7 @@
 				this._historyOpened = false;
 			},
 			toggleHistory: function () {
-				if(!this.$.toast.visible){
+				if(!this.$.toast.opened){
 					this.showHistory();
 				}else if (this._historyOpened) {
 					this.hideHistory();
