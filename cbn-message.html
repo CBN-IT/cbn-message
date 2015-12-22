@@ -176,6 +176,9 @@
 			detached: function () {
 				this.unlisten(document, "cbn-message", "_listenForMessages");
 			},
+			ready:function(){
+				this.$.toast._onIronResize = this._positionToast.bind(this);
+			},
 			_listenForMessages: function (event) {
 				this.showMessage(event.detail.text, event.detail.duration, event.detail.type)
 			},
