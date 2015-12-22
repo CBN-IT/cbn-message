@@ -177,7 +177,6 @@
 				this.unlisten(document, "cbn-message", "_listenForMessages");
 			},
 			_listenForMessages: function (event) {
-				console.log(event.detail);
 				this.showMessage(event.detail.text, event.detail.duration, event.detail.type)
 			},
 			_iconForType: function (type) {
