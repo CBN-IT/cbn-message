@@ -85,21 +85,22 @@
 		</style>
 		<paper-button class="icon-button" on-tap="toggleHistory" id="historyButton">
 			<iron-icon icon="icons:history"></iron-icon>
-			<!--<span>{{_noMessages}}</span>-->
+			<cbn-tooltip position="bottom">Istoric Mesaje</cbn-tooltip>
 		</paper-button>
-		<cbn-tooltip for="historyButton" position="bottom">Istoric Mesaje</cbn-tooltip>
+		
 		<paper-toast id="toast" duration="[[duration]]" class="capsule">
 			<div class="message">
 				<iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
 				<span class="text">{{text}}</span>
-				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;" id="historyButtonMessage" >
+				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;" >
 					<iron-icon icon="icons:history"></iron-icon>
+					<cbn-tooltip>Istoric Mesaje</cbn-tooltip>
 				</paper-button>
-				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;" id="dismissMessage">
+				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;">
 					<iron-icon icon="icons:cancel"></iron-icon>
+					<cbn-tooltip>Ascunde mesajul</cbn-tooltip>
 				</paper-button>
-				<paper-tooltip for="dismissMessage">Ascunde mesajul</paper-tooltip>
-				<paper-tooltip for="historyButtonMessage">Istoric Mesaje</paper-tooltip>
+				
 			</div>
 			<div style="max-height:170px; overflow-y:auto" hidden$="{{!_historyOpened}}">
 				<template is="dom-repeat" items="[[history]]">
