@@ -6,7 +6,7 @@
 
 
 <!--
-`cbn-message` allows you to use an [ace editor](http://ace.c9.io/) as an element.
+`cbn-message`
 ### Usage
     <cbn-message></cbn-message>
 @element cbn-message
@@ -15,7 +15,7 @@
 
 <dom-module id="cbn-message">
 	<template>
-		<style is="custom-style">
+		<style>
 			:host {
 				display: block;
 			}
@@ -98,7 +98,7 @@
 				</paper-button>
 				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;">
 					<iron-icon icon="icons:cancel"></iron-icon>
-					<cbn-tooltip>Ascunde mesajul</cbn-tooltip>
+					<cbn-tooltip id="tooltip">Ascunde mesajul</cbn-tooltip>
 				</paper-button>
 				
 			</div>
@@ -164,12 +164,13 @@
 			},
 			attached: function () {
 				this.listen(document, "cbn-message", "_listenForMessages");
+				
 			},
 			detached: function () {
 				this.unlisten(document, "cbn-message", "_listenForMessages");
 			},
 			ready:function(){
-				this.$.toast._onIronResize = this._positionToast.bind(this);
+				this.$.toast.center = this._positionToast.bind(this);
 			},
 			_listenForMessages: function (event) {
 				this.showMessage(event.detail.text, event.detail.duration, event.detail.type)
@@ -224,7 +225,6 @@
 			},
 			show: function () {
 				this.$.toast.show();
-				this._positionToast();
 			},
 			toggle: function () {
 				this.$.toast.toggle();
