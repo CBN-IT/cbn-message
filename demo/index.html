@@ -16,59 +16,75 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<link rel="import" href="../cbn-message.html">
 	<link rel="import" href="../../paper-button/paper-button.html">
 
+	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+
 	<style>
-		html,body{
-			margin:0;
-			padding:0;
+		html, body {
+			margin: 0;
+			padding: 0;
 		}
+
 		body {
 			position: absolute;
-			top:0;
-			bottom:0;
-			left:0;
-			right:0;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
 		}
 	</style>
 </head>
 <body>
-	<template id="first" is="dom-bind">
-		<cbn-message></cbn-message>
-		<paper-button on-tap='message1'>Short message, 30sec, success</paper-button><br />
-		<paper-button on-tap='message2'>Short message, 2sec, success</paper-button><br />
-		<paper-button on-tap='message3'>Long message, 30sec, warning</paper-button><br />
-		<paper-button on-tap='message4'>Short message, 30sec, error</paper-button><br />
-	</template>
-	<script>
-		window.addEventListener('WebComponentsReady', function () {
-			first.message1= function(){
-				this.fire("cbn-message", {
-					"text": "Message 1",
-					"duration":3000000,
-					"type": "success"
-				});
-			};
-			first.message2= function(){
-				this.fire("cbn-message", {
-					"text": "Message 3",
-					"duration": 2000,
-					"type": "success"
-				});
-			};
-			first.message3= function(){
-				this.fire("cbn-message", {
-					"text": "Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2",
-					"duration":30000,
-					"type": "warning"
-				});
-			};
-			first.message4= function(){
-				this.fire("cbn-message", {
-					"text": "Message 4",
-					"duration": 30000,
-					"type": "error"
-				});
-			};
-		});
-	</script>
-	</body>
+<form id="demoForm" is="cbn-form" model>
+	<demo-snippet class="centered-demo" style="position:relative">
+		<template id="first" is="dom-bind">
+			<cbn-message></cbn-message>
+			<br/>
+			<paper-button on-tap='message1'>Short message, 30sec, success</paper-button>
+			<br/>
+			<paper-button on-tap='message2'>Short message, 2sec, success</paper-button>
+			<br/>
+			<paper-button on-tap='message3'>Long message, 30sec, warning</paper-button>
+			<br/>
+			<paper-button on-tap='message4'>Short message, 30sec, error</paper-button>
+			<br/>
+		</template>
+	</demo-snippet>
+	<br/>
+	<p>Check the index.html from the demo folder to see the functions for each message.</p>
+</form>
+
+<script>
+	window.addEventListener('WebComponentsReady', function () {
+		first.message1 = function () {
+			this.fire("cbn-message", {
+				"text": "Message 1",
+				"duration": 3000000,
+				"type": "success"
+			});
+		};
+		first.message2 = function () {
+			this.fire("cbn-message", {
+				"text": "Message 3",
+				"duration": 2000,
+				"type": "success"
+			});
+		};
+		first.message3 = function () {
+			this.fire("cbn-message", {
+				"text": "Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2Message 2",
+				"duration": 30000,
+				"type": "warning"
+			});
+		};
+		first.message4 = function () {
+			this.fire("cbn-message", {
+				"text": "Message 4",
+				"duration": 30000,
+				"type": "error"
+			});
+		};
+	});
+</script>
+</body>
 </html>
