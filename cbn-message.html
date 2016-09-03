@@ -83,7 +83,7 @@
 				color: #f44336;
 			}
 		</style>
-		<paper-button class="icon-button" on-tap="toggleHistory" id="historyButton">
+		<paper-button class="icon-button" on-tap="toggleHistory" id="historyButton" hidden$="[[noButton]]">
 			<iron-icon icon="icons:history"></iron-icon>
 			<cbn-tooltip position="bottom">Istoric Mesaje</cbn-tooltip>
 		</paper-button>
@@ -159,6 +159,10 @@
 				_noMessages: {
 					type: Number,
 					value: 0
+				},
+				noButton:{
+					type:Boolean,
+					value:false
 				}
 
 			},
