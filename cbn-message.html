@@ -168,13 +168,17 @@
 			},
 			attached: function () {
 				this.listen(document, "cbn-message", "_listenForMessages");
-				
+			
 			},
 			detached: function () {
 				this.unlisten(document, "cbn-message", "_listenForMessages");
 			},
 			ready:function(){
 				this.$.toast.center = this._positionToast.bind(this);
+				this.$.toast._focusedChild = {
+					focus: function () {},
+					blur: function () {}
+				}
 			},
 			_listenForMessages: function (event) {
 				this.showMessage(event.detail.text, event.detail.duration, event.detail.type)
