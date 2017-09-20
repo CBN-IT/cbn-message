@@ -3,6 +3,7 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../cbn-tooltip/cbn-tooltip.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../cbn-language/cbn-language-behavior.html">
 
 
 <!--
@@ -85,7 +86,7 @@
 		</style>
 		<paper-button class="icon-button" on-tap="toggleHistory" id="historyButton" hidden$="[[noButton]]">
 			<iron-icon icon="icons:history"></iron-icon>
-			<cbn-tooltip position="bottom">Istoric Mesaje</cbn-tooltip>
+			<cbn-tooltip position="bottom">{{_computedLanguage(selectedLanguage,"messageHistory")}}</cbn-tooltip>
 		</paper-button>
 		
 		<paper-toast id="toast" duration="[[duration]]" class="capsule">
@@ -94,11 +95,11 @@
 				<span class="text">{{text}}</span>
 				<paper-button class="icon-button action-button" on-tap="toggleHistory" style="margin-left:0;" >
 					<iron-icon icon="icons:history"></iron-icon>
-					<cbn-tooltip>Istoric Mesaje</cbn-tooltip>
+					<cbn-tooltip>{{_computedLanguage(selectedLanguage,"messageHistory")}}</cbn-tooltip>
 				</paper-button>
 				<paper-button class="icon-button action-button" on-tap="hide" style="margin-right:0;">
 					<iron-icon icon="icons:cancel"></iron-icon>
-					<cbn-tooltip id="tooltip">Ascunde mesajul</cbn-tooltip>
+					<cbn-tooltip id="tooltip">{{_computedLanguage(selectedLanguage,"hideMessage")}}</cbn-tooltip>
 				</paper-button>
 				
 			</div>
@@ -119,6 +120,9 @@
 	(function () {
 		Polymer({
 			is: 'cbn-message',
+			behaviors: [
+				Cbn.facturi.languageBehavior
+			],
 			properties: {
 				/**
 				 * in milliseconds
@@ -163,8 +167,14 @@
 				noButton:{
 					type:Boolean,
 					value:false
+				},
+				resources: {
+					type: Object,
+					value: {
+						"messageHistory": "Message history",
+						"hideMessage": "Hide message"
+					}
 				}
-
 			},
 			attached: function () {
 				this.listen(document, "cbn-message", "_listenForMessages");

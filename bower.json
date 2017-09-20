@@ -15,7 +15,9 @@
     "web-component-tester": "Polymer/web-component-tester",
     "iron-component-page": "PolymerElements/iron-component-page#^1.0",
     "test-fixture": "PolymerElements/test-fixture#^1.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5", 
+    "cbn-language": "CBN-IT/cbn-language#master"
+
   },
   "resolutions": {
     "polymer": "^1.4.0",
