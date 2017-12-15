@@ -1,0 +1,106 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<dom-module id="cbn-message">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+            [color="success"] {
+                color: #0f9d58;
+            }
+
+            [color="warning"] {
+                color: #f4b400;
+            }
+
+            [color="error"] {
+                color: #f44336;
+            }
+            paper-toast{
+                display: flex;
+            }
+            .text{
+                flex: 1;
+                margin: auto;
+            }
+        </style>
+        <paper-toast id="toast" duration="{{duration}}">
+            <span class="text">{{text}}</span>
+            <iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
+        </paper-toast>
+    </template>
+
+    <script>
+        /**
+         * `cbn-message`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class CbnMessage extends Polymer.Element {
+            static get is() {
+                return 'cbn-message';
+            }
+
+            static get properties() {
+                return {
+                    /**
+                     * in milliseconds
+                     */
+                    duration: {
+                        type: Number,
+                        value: 3000
+                    },
+                    /**
+                     * the text to be shown
+                     */
+                    text: {
+                        type: String,
+                        value: ""
+                    },
+                    /**
+                     * success/warning/error
+                     */
+                    type: {
+                        type: String,
+                        value: "success"
+                    },
+                };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                document.addEventListener("cbn-message", this.handleMessage.bind(this), true);
+            }
+
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                document.removeEventListener("cbn-message", this.handleMessage.bind(this), true);
+            }
+
+            handleMessage(event) {
+                this.text = event.detail.text;
+                this.$.toast.open();
+            }
+
+            _iconForType(type) {
+                if (type == "warning") {
+                    return "icons:warning"
+                } else if (type == "success") {
+                    return "icons:check-circle"
+                } else if (type == "error") {
+                    return "icons:error"
+                }
+            }
+
+        }
+
+        window.customElements.define(CbnMessage.is, CbnMessage);
+    </script>
+</dom-module>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cbn-message demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../cbn-message.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic cbn-message demo</h3>
+      <demo-snippet>
+        <template>
+          <paper-button onclick="openToast()">Open Toast</paper-button>
+          <cbn-message></cbn-message>
+        </template>
+      </demo-snippet>
+    </div>
+    <script>
+        function openToast() {
+            let text = "Text me";
+            document.dispatchEvent(new CustomEvent('cbn-message', {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    text: text,
+                    type: "error"
+                }
+            }));
+        }
+    </script>
+  </body>
+</html>
