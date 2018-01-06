@@ -70,7 +70,7 @@
                     type: {
                         type: String,
                         value: "success"
-                    },
+                    }
                 };
             }
 
@@ -86,6 +86,7 @@
 
             handleMessage(event) {
                 this.text = event.detail.text;
+                this.type = event.detail.type != undefined ? event.detail.type : "success";
                 this.$.toast.open();
             }
 
