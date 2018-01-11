@@ -31,7 +31,7 @@
                 margin-left: 10px;
             }
         </style>
-        <paper-toast id="toast" duration="{{duration}}">
+        <paper-toast id="toast" duration="{{duration}}" no-cancel-on-outside-click="false">
             <span class="text">{{text}}</span>
             <iron-icon class="type-icon" icon="{{_iconForType(type)}}" color$="{{type}}"></iron-icon>
         </paper-toast>
